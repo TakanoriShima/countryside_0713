@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :setup_users
+  before_action :setup_users, except: :dm_users
 
   def index
     @messages = Message.where("from_id IN (:ids) AND to_id IN (:ids)",ids:@ids)
@@ -17,6 +17,27 @@ class MessagesController < ApplicationController
       format.js { render "create"}
     end
   end
+  
+  def dm_users
+    # DMのやり取りをしているユーザー一覧
+    messages = Message.where(from_id: current_user.id).or(Message.where(to_id: current_user.id))
+    puts "ここ一覧"
+    p messages
+    user_ids = []
+    messages.each do |message|
+      if message.from_id != current_user.id
+        user_ids.append(message.from_id)
+      end
+      if message.to_id != current_user.id
+        user_ids.append(message.to_id)
+      end
+    end
+    p user_ids
+    user_ids = user_ids.uniq
+    p user_ids
+    @users = User.where(id: user_ids)
+    p @users
+  end  
 
   private
   def message_params

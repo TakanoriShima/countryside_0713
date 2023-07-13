@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'messages/index'
-  get 'messages/create'
+  # get 'messages/index'
+  # get 'messages/create'
   root to: "home#index"
   
   devise_for :users, :controllers => {
@@ -52,9 +52,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   
+  get 'messages/dm_users', 'messages#dm_users' 
+  
   resources :users do
     member do
       resources :messages, only: [:create, :index]
     end
   end
+  
+  
 end
