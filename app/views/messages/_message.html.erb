@@ -1,0 +1,22 @@
+<li <%= "class = my-content" if message.from_id == current_user.id %>>
+    <div class="content">
+        <% if message.from_id == current_user.id %>
+            <%= image_tag current_user.user_profile.avatar.variant(:thumb_s), class: "dm-avatar" %><br>
+            <span>
+                <%#= current_user.user_profile.screen_name %>
+            </span>
+        <% else %>
+            <%= image_tag @to_user.user_profile.avatar.variant(:thumb_s), class: "dm-avatar" %><br>
+            <span>
+                <%#= @to_user.user_profile.screen_name %>
+            </span>
+        <% end %>
+        <span class="message">
+            <%= message.content %>
+        </span>
+
+        <span class="timestamp">
+            <%= message.created_at %>
+        </span>
+    </div>
+</li>

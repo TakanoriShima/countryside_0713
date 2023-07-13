@@ -6,6 +6,9 @@
   <div class="col-md-10">
    <span class="badge text-bg-success">地域側</span>
     <p class="name"><%= user_profile.screen_name %></p>
+    <% if user_profile.id != current_user.user_profile.id %>
+    <p><%= link_to 'DM', messages_path(user_profile) %></p>
+    <% end %>
     <P class="place"><%= user_profile.prefecture %><%= user_profile.city %></P>
     <small class="text-body-secondary">最終ログイン日　<%= l user_profile.user.last_sign_in_at, format: :only_date %></small>
     <%# if profile_type1_flag %>

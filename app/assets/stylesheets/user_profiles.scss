@@ -10,3 +10,19 @@ div.user_profile_profile_type2 {
 input[type=checkbox]:checked ~ div.user_profile_profile_type2 {
   display:block;
 }
+
+// DM
+ol#messages {
+    list-style-type: none;
+}
+
+li.my-content{
+  justify-content: flex-end;
+  text-align: right;
+}
+
+li.my-content.message {
+    background:#71151a;
+    border-radius: 10px;
+    color: #fff;
+}

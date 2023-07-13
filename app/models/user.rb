@@ -6,5 +6,12 @@ class User < ApplicationRecord
          
   has_one :user_profile
   has_many :posts, dependent: :destroy
+  
+  has_many :outgoing_messages, class_name: "Message",
+                               foreign_key: "from_id",
+                               dependent: :destroy
+  has_many :incoming_messages, class_name: "Message",
+                               foreign_key: "to_id",
+                               dependent: :destroy
          
 end

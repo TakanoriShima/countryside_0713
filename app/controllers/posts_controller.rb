@@ -212,23 +212,55 @@ class PostsController < ApplicationController
   end
   
   def index
+    puts "ここ"
+    p params
+    
+    keyword = params[:keyword] # A ""
+    prefecture = params[:prefecture] # B ""
+    category_resource_ids = params[:category_resource_id] # C
+    category_issue_ids = params[:category_issue_id] # D
+    category_market_ids = params[:category_market_id] # E
+    category_feature_ids = params[:category_feature_id] # F
+    search_type = params[:search_type] # G "1" -> or, "2" -> and, 両方チェック -> 2  
+    
+    p keyword
+    p prefecture
+    p category_resource_ids
+    p category_issue_ids
+    p category_market_ids
+    p category_feature_ids
+    p search_type
+    
+    # 選択or入力しなかった場合、nil か 空の配列
+    
+    # 全選択 かつ AND
+    if keyword != "" && prefecture != "" && category_resource_ids != nil && category_issue_ids != nil && category_market_ids != nil && category_feature_ids != nil && search_type == '2'
+      puts "pattern1"
+    elsif keyword != nil && prefecture != nil && category_resource_ids != nil && category_issue_ids != nil && category_market_ids != nil && category_feature_ids != nil && search_type == nil
+      puts "pattern2"
+    end  
+    
+    
+    
+    
     @category_resource = CategoryResource.new
     @category_issue = CategoryResource.new
     @category_market = CategoryMarket.new
     @category_feature = CategoryFeature.new
-    prefecture = params[:prefecture]
-    keyword = params[:keyword]
-    category_resource_ids = params[:category_resource_id]
-    category_issue_ids = params[:category_issue_id]
-    category_market_ids = params[:category_market_id]
-    category_feature_ids = params[:category_feature_id]
-    search_type = params[:search_type]
+    # prefecture = params[:prefecture]
+    # keyword = params[:keyword]
+    # category_resource_ids = params[:category_resource_id]
+    # category_issue_ids = params[:category_issue_id]
+    # category_market_ids = params[:category_market_id]
+    # category_feature_ids = params[:category_feature_id]
+    # search_type = params[:search_type]
     @posts = []
     @check_flags_category_resources = []
     
+    # no check or OR
     if search_type.nil? || search_type == "1"
       #OR検索
-      if  prefecture.nil? && keyword.nil? && category_resource_ids.nil? && category_issue_ids.nil? && category_market_ids.nil? && category_feature_ids.nil?
+      if  prefecture != "" && keyword != "" && category_resource_ids.nil? && category_issue_ids.nil? && category_market_ids.nil? && category_feature_ids.nil?
         @posts = Post.all
         
       else

@@ -244,6 +244,11 @@ class UserProfilesController < ApplicationController
     @user_profile = UserProfile.find(params[:id])
     @posts = @user_profile.user.posts
     @category_resources = CategoryResource.all
+    # @id = current_user.id
+    puts "ここだよ"
+    p current_user
+    # current_user = User.find(session[:id])
+    # p current_user
     # @profile_type1_flag = true
     # @profile_type2_flag = true
   end
@@ -252,6 +257,7 @@ class UserProfilesController < ApplicationController
     @user_profiles = UserProfile.all
     @profile_type1_flag = true
     @profile_type2_flag = true
+    
     # @profile_type1_flag = current_user.user_profile.profile_type1
     # @profile_type2_flag = current_user.user_profile.profile_type2
     

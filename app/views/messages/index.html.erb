@@ -1,0 +1,9 @@
+<h2><%= @to_user.user_profile.screen_name %>さんとのDM</h2>
+<%= image_tag @to_user.user_profile.avatar.variant(:thumb_s), class: "dm-avatar-large" %><br><br>
+<ol id="messages">
+    <%= render @messages %>
+</ol>
+<div id="error_messages">
+    <%= render "shared/error_messages", object:@message %>
+</div>
+<%= render "shared/message_form" %>
